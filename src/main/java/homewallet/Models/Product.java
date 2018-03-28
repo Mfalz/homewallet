@@ -1,31 +1,32 @@
 package homewallet;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 // This is the entity class which Hibernate will automatically translate into a table.
 
 @Entity
+@Table(
+        name="product",
+        uniqueConstraints=@UniqueConstraint(columnNames = {"cost", "name"})
+)
 public class Product {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     private String name;
-    private String cost;
+    private Double cost;
 
     public String getName(){
         return this.name;
     }
-    public String getCost(){
+    public Double getCost(){
         return this.cost;
     }
     public Integer getId(){
         return this.id;
     }
 
-    public void setCost(String cost){
+    public void setCost(Double cost){
         this.cost=cost;
     }
     public void setName(String name){

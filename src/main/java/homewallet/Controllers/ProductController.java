@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.dao.DataAccessException;
 import homewallet.Product;
 import homewallet.ProductRepository;
 
@@ -24,9 +24,13 @@ public class ProductController {
     public String add(Model model) {
         // create a new product
         Product newProduct = new Product();
-        newProduct.setName("a product");
-        newProduct.setCost("11.33");
-        productRepository.save(newProduct);
+        try {
+            newProduct.setName("a product");
+            newProduct.setCost(11.12);
+            productRepository.save(newProduct);
+        }catch(DataAccessException e){
+            System.out.println(e);
+        }
         model.addAttribute("action", "add");
         return "product";
     }
